@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var mysql = require('mysql');
-const Tib = require('./models/TIB');
+const Tib = require('./models/Eventos');
 var con = mysql.createConnection({
 	host: "localhost",
 	user: "root",
@@ -58,7 +58,7 @@ app.get('/inscricao', function (req, res) {
 
 	var ev = new Evento();
 	ev.listar(con, function (result) {
-		res.render('/cri/Projeto-integrador-PI/views/Evento/lista.ejs', { evento: result });
+		res.render('Evento/lista.ejs', { evento: result });
 	});
 
 });

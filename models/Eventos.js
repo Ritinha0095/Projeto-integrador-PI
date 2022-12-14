@@ -77,6 +77,7 @@ module.exports = class Eventos {
             throw e;
         }
     }
+    
 
 listar(connection, callback) {
     var sql = "SELECT * FROM eventos ";

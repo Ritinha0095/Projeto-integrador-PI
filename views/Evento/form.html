@@ -140,7 +140,7 @@
                             class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
                           <li><a href="/tib">Conheça o TIB!</a></li>
-                          <li><a href="/inscricao">Inscreva-se no TIB!</a></li>
+                          <li><a href="/inscricaoTIB">Inscreva-se no TIB!</a></li>
                         </ul>
                       </li>
 
@@ -254,22 +254,19 @@
       </div><!-- fim do container -->
     </section>
 
-    <script>
-      import choose from "./lista.ejs";
-    </script>
     <section id="TIBcadastro">
       <h2>Cadastros</h2>
       <hr><br>
 
       <form action="/salvarEvento" method="post">
+
         <th>Nome</th>
-        <th hidden>Escola</th>
-        <th hidden>Ano</th>
+        <th>Escola</th>
+        <th>Ano</th>
         <th>Contato</th>
         <th>Comitê</th>
         <th>Delegação</th>
         <th>Justificativa</th>
-
 
         <label for="nome">Nome:</label><br>
         <input type="text" name="nome" id="nome" size="30"><br><br>
@@ -290,10 +287,10 @@
         </select>
 
         <label for="escola">Escola:</label><br>
-        <input type="text" name="escola" id="escola" size="20" hidden><br><br>
+        <input type="text" name="escola" id="escola" size="20"><br><br>
 
         <label for="ano"></label>
-        <select id="ano" name="ano" hidden>
+        <select id="ano" name="ano">
           <option value="#">Selecione seu ano:</option>
           <option value="ano1">1° ano</option>
           <option value="ano2">2° ano</option>
