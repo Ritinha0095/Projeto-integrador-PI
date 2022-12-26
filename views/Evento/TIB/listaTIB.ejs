@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tib: lista</title>
+</head>
+
+<body>
+
+    <h1>LISTA - tib</h1>
+    <hr>
+    <br>
+
+    <h2>Filtrar tib</h2>
+    <form action="/filtrarTIB" method="post">
+        <input type="search" placeholder="Use % como coringa" aria-label="Search">
+        <button class="btn" type="submit" name="filtrar" value="Filtrar">Filtrar</button>
+    </form>
+    <br><br>
+
+    <a href="/formTIB">Novo inscrito</a><br><br>
+    <a href="/">Voltar para Tela Principal</a>&nbsp;
+
+    <form action="/gerenciarTib" method="post">
+        <input type="submit" name="acao" value="Excluir">
+        <input type="submit" name="acao" value="Atualizar">
+
+        <table>
+            <tr>
+                <th>Selecionar</th>
+                <th>Nome</th>
+                <th>Turma</th>
+                <th>Telefone</th>
+                <th>Matrícula</th>
+                <th>Email</th>
+                <th>Comitê</th>
+                <th>Delegação</th>
+            </tr>
+
+            <% tib.forEach((tib, index)=> { %>
+                <tr>
+                    <td>
+                        <input type="radio" name="comite" value="<%= tib.matricula %>">
+                    </td>
+
+                    <td>
+                        <%= tib.nome %>
+                    </td>
+
+                    <td>
+                        <%= tib.turma %>
+                    </td>
+
+                    <td>
+                        <%= tib.telefone %>
+                    </td>
+
+                    <td>
+                        <%= tib.matricula %>
+                    </td>
+
+                    <td>
+                        <%= tib.email %>
+                    </td>
+
+                    <td>
+                        <%= tib.comite %>
+                    </td>
+
+                    <td>
+                        <%= tib.delegacao %>
+                    </td>
+                </tr>
+                <% }) %>
+        </table>
+</body>
+
+</html>

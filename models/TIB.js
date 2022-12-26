@@ -4,11 +4,10 @@ module.exports = class Alunos {
         this.nome = "";
         this.turma = "";
         this.telefone = "";
-        this.email = "";
-        this.curso = "";
-        this.escola = "";
         this.matricula = "";
-        this.endereco = "";
+        this.email = "";
+        this.comite = "";
+        this.delegacao = "";
     }
 
     setNome(n) {
@@ -35,6 +34,13 @@ module.exports = class Alunos {
         return this.telefone;
     }
 
+    setMatricula(ma) {
+        this.matricula = ma;
+    }
+    getMatricula (){
+        return this.matricula;
+    }
+
     setEmail(em) {
         this.email = em;
     }
@@ -42,44 +48,26 @@ module.exports = class Alunos {
     getEmail() {
         return this.email;
     }
-
-    setCurso(cu) {
-        this.curso = cu;
+  
+    setComite(ct) {
+        this.comite = ct;
+    }
+    getComite(){
+        return this.comite;
     }
 
-    getCurso() {
-        return this.curso;
+    setDelegacao(d) {
+        this.delegacao = d;
     }
-
-    setEscola(es) {
-        this.escola = es;
-    }
-
-    getEscola() {
-        return this.escola;
-    }
-
-    setMatricula(ma) {
-        this.matricula = ma;
-    }
-
-    getEscola() {
-        return this.matricula;
-    }
-
-    setEndereco(en) {
-        this.endereco = en;
-    }
-
-    getEndereco() {
-        return this.endereco;
+    getDelegacao (){
+        return this.delegacao;
     }
 
 
     inserir(connection) {
         try {
-            var sql = "INSERT INTO alunos (nome,turma,telefone,email,curso,ano,escola,matricula,endereco) VALUES(?,?,?,?,?,?,?,?,?)";
-            connection.query(sql, [this.nome, this.turma, this.telefone, this.email, this.curso, this.ano, this.escola, this.matricula, this.endereco],
+            var sql = "INSERT INTO alunosTIB (nome,turma,telefone,matricula,email,comite,cargo) VALUES(?,?,?,?,?,?,?)";
+            connection.query(sql, [this.nome, this.turma, this.telefone, this.matricula, this.email, this.comite, this.delegacao],
                 function (err, result) {
                     //if (err) throw "teste";
                     if (err) throw 'err from callback: ' + err.stack;
@@ -92,7 +80,7 @@ module.exports = class Alunos {
     }
 
     listar(connection, callback) {
-        var sql = "SELECT * FROM alunos";
+        var sql = "SELECT * FROM alunosTIB";
 
         connection.query(sql, function (err, result) {
             if (err) throw err;
@@ -102,15 +90,15 @@ module.exports = class Alunos {
 
 
     pesquisar(connection, callback) {
-        var sql = "SELECT * FROM alunos WHERE nome like ?";
+        var sql = "SELECT * FROM alunosTIB WHERE matricula like ?";
 
-        connection.query(sql, [this.nome], function (err, result) {
+        connection.query(sql, [this.matricula], function (err, result) {
             if (err) throw err;
             return callback(result);
         });
     }
     deletar(connection) {
-        var sql = "DELETE FROM alunos WHERE matricula =  ?";
+        var sql = "DELETE FROM alunosTIB WHERE matricula =  ?";
 
         connection.query(sql, [this.matricula], function (err, result) {
             //if (err) throw "teste";
@@ -119,7 +107,7 @@ module.exports = class Alunos {
     }
 
     consultarChave(connection, callback) {
-        var sql = "SELECT * FROM alunos WHERE matricula = ?";
+        var sql = "SELECT * FROM alunosTIB WHERE matricula = ?";
 
         connection.query(sql, [this.matricula], function (err, result) {
             if (err) throw err;
@@ -129,9 +117,9 @@ module.exports = class Alunos {
 
     atualizar(connection) {
         try {
-            var sql = "UPDATE alunos SET nome = ?, turma = ?, telefone = ?, email = ?, curso = ?, ano = ?, escola = ?, matricula = ?, endereco = ?";
+            var sql = "UPDATE alunosTIB SET nome = ?, turma = ?, telefone = ?, matricula = ?, email = ?, comite = ?, delegacao = ?";
 
-            connection.query(sql, [this.nome, this.turma, this.telefone, this.email, this.curso, this.ano, this.escola, this.matricula, this.endereco], function (err, result) {
+            connection.query(sql, [this.nome, this.turma, this.telefone, this.matricula, this.email, this.comite, this.delegacao], function (err, result) {
                 //if (err) throw "teste";
                 if (err) throw 'err from callback: ' + err.stack;
             });

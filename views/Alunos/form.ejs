@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos: atualizar</title>
+</head>
+
+<body>
+
+    <h1>ATUALIZAR</h1>
+    <hr>
+
+    <form action="/atualizarAlunos" method="post">
+
+
+        <label for="nome">Nome:</label><br>
+        <input type="text" name="nome" id="nome" value="<%= alunos[0].nome %>" size="30"><br><br>
+
+        <label for="turma" id="turma">Turma:</label>
+        <input type="number" id="turma" name="turma"><br><br>
+
+        <label for="telefonealuno">Telefone:</label><br>
+        <input type="text" name="telefone" id="telefone" value="<%= alunos[0].telefone %>"><br><br>
+
+        <label for="emailaluno">E-mail:</label><br>
+        <textarea name="emailaluno" id="emailaluno" cols="100" rows="3"><%= alunos[0].emailaluno %></textarea><br><br>
+
+        <label for="curso">Curso:</label><br>
+        <input type="text" name="curso" id="curso" value="<%= alunos[0].curso %>"><br><br>
+
+        <label for="ano">Ano (letivo):</label><br>
+        <input type="text" name="ano" id="ano" value="<%= alunos[0].ano %>"><br><br>
+
+        <label for="escola" id="escola">Escola:</label>
+        <input type="text" id="escola" name="escola"><br><br>
+
+        <label for="matricula" id="matricula">Matrícula:</label><br>
+        <input type="text" name="matricula" id="matricula" value="<%= alunos[0].matricula %>"><br><br>
+
+        <label for="endereco" id="endereco">Endereco:</label>
+        <input type="text" id="endereco" name="endereco"><br><br>
+
+        <input type="submit" name="salvar" value="Salvar">
+        <input type="reset" name="limpar" value="Limpar">
+
+    </form>
+</body>
+
+</html>
