@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos</title>
+</head>
+
+<body>
+
+    <h1>INSCREVA-SE!</h1>
+    <hr>
+
+    <form action="/salvarAlunos" method="post">
+
+        <label for="nome" id="nome">Nome:</label>
+        <input type="text" id="nome" name="nome"><br><br>
+
+        <label for="turma" id="turma">Turma:</label>
+        <input type="number" id="turma" name="turma"><br><br>
+
+        <label for="telefone" id="telefone">Telefone:</label>
+        <input type="number" id="telefone" name="telefone"><br><br>
+
+        <label for="email" id="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+
+        <label for="curso" id="curso">Curso:</label>
+        <input type="text" name="curso" id="curso"><br><br>
+
+        <label for="ano">Ano (letivo):</label><br>
+        <select id="ano">
+            <option value="1">1° ano</option>
+            <option value="2">2° ano</option>
+            <option value="3">3° ano</option>
+            <option value="4">4° ano</option>
+        </select><br><br>
+
+        <label for="escola" id="escola">Escola:</label>
+        <input type="text" id="escola" name="escola"><br><br>
+
+        <label for="matricula" id="matricula">Matrícula:</label>
+        <input type="text" id="matricula" name="matricula"><br><br>
+
+        <label for="endereco" id="endereco">Endereco:</label>
+        <input type="text" id="endereco" name="endereco"><br><br>
+
+        <input type="submit" name="salvar" value="Salvar">
+        <input type="reset" name="limpar" value="Limpar">
+
+    </form>
+</body>
+
+</html>

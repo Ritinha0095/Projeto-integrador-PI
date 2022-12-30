@@ -1,98 +1,131 @@
-const Alunos = require('./Alunos');
-const Membros = require('./Membros');
-const Comites = require('./Comites');
+module.exports = class Alunos {
 
-module.exports = class Eventos {
     constructor() {
-
         this.nome = "";
-        this.escolas = "";
-        this.ano = "";
-        this.contato = "";
+        this.turma = "";
+        this.telefone = "";
+        this.matricula = "";
+        this.email = "";
         this.comite = "";
         this.delegacao = "";
-        this.justificativa = "";
     }
 
-    setNome(nom) {
-        this.nome = nom;
+    setNome(n) {
+        this.nome = n;
     }
+
     getNome() {
         return this.nome;
     }
 
-    setEscolas(esc) {
-        this.escolas = esc;
-    }
-    getEscolas() {
-        return this.escolas;
+    setTurma(tu) {
+        this.turma = tu;
     }
 
-    setAno(ano) {
-        this.ano = ano;
-    }
-    getAno() {
-        return this.ano;
+    getTurma() {
+        return this.turma;
     }
 
-    setTelefone(tel) {
-        this.telefone = tel;
+    setTelefone(te) {
+        this.telefone = te;
     }
+
     getTelefone() {
         return this.telefone;
     }
 
-    setComite(com) {
-        this.comite = com;
+    setMatricula(ma) {
+        this.matricula = ma;
     }
-    getComite() {
+    getMatricula (){
+        return this.matricula;
+    }
+
+    setEmail(em) {
+        this.email = em;
+    }
+
+    getEmail() {
+        return this.email;
+    }
+  
+    setComite(ct) {
+        this.comite = ct;
+    }
+    getComite(){
         return this.comite;
     }
 
-    setDelegacao(deleg) {
-        this.delegacao = deleg;
+    setDelegacao(d) {
+        this.delegacao = d;
     }
-    getDelegacao() {
+    getDelegacao (){
         return this.delegacao;
     }
 
-    setJustificativa(jus) {
-        this.justificativa = jus;
-    }
-    getJustificativa() {
-        return this.justificativa;
-    }
 
     inserir(connection) {
         try {
-            var sql = "INSERT INTO eventos (nome,escolas,ano,telefone,comite,delegacao,justificativa) VALUES (?,?,?,?,?,?,?)"
-
-            connection.query(sql, [this.nome, this.escolas, this.ano, this.telefone, this.comite, this.delegacao, this.justificativa],
+            var sql = "INSERT INTO alunosTIB (nome,turma,telefone,matricula,email,comite,cargo) VALUES(?,?,?,?,?,?,?)";
+            connection.query(sql, [this.nome, this.turma, this.telefone, this.matricula, this.email, this.comite, this.delegacao],
                 function (err, result) {
-                    if (err) throw "teste"
+                    //if (err) throw "teste";
+                    if (err) throw 'err from callback: ' + err.stack;
                 });
-
-        } catch (e) {
+        }
+        catch (e) {
             console.error('err from callback: ' + e.stack);
             throw e;
         }
     }
 
-listar(connection, callback) {
-    var sql = "SELECT * FROM evento ";
+    listar(connection, callback) {
+        var sql = "SELECT * FROM alunosTIB";
 
-    connection.query(sql, function (err, result) {
-        if (err) throw err;
-        return callback(result);
-    });
-}
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            return callback(result);
+        });
+    }
 
-pesquisar(connection, callback) {
-    var sql = "SELECT * FROM evento WHERE nome like ?";
 
-    connection.query(sql, [this.nome], function (err, result) {
-        if (err) throw err;
-        return callback(result);
-    });
-}
+    pesquisar(connection, callback) {
+        var sql = "SELECT * FROM alunosTIB WHERE matricula like ?";
+
+        connection.query(sql, [this.matricula], function (err, result) {
+            if (err) throw err;
+            return callback(result);
+        });
+    }
+    deletar(connection) {
+        var sql = "DELETE FROM alunosTIB WHERE matricula =  ?";
+
+        connection.query(sql, [this.matricula], function (err, result) {
+            //if (err) throw "teste";
+            if (err) throw 'err from callback: ' + err.stack;
+        });
+    }
+
+    consultarChave(connection, callback) {
+        var sql = "SELECT * FROM alunosTIB WHERE matricula = ?";
+
+        connection.query(sql, [this.matricula], function (err, result) {
+            if (err) throw err;
+            return callback(result);
+        });
+    }
+
+    atualizar(connection) {
+        try {
+            var sql = "UPDATE alunosTIB SET nome = ?, turma = ?, telefone = ?, matricula = ?, email = ?, comite = ?, delegacao = ?";
+
+            connection.query(sql, [this.nome, this.turma, this.telefone, this.matricula, this.email, this.comite, this.delegacao], function (err, result) {
+                //if (err) throw "teste";
+                if (err) throw 'err from callback: ' + err.stack;
+            });
+        } catch (e) {
+            console.error('err from callback: ' + e.stack);
+            throw e;
+        }
+    }
 }

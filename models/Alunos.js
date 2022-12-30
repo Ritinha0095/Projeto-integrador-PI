@@ -1,15 +1,13 @@
-const Escolas = require('./Escolas');
+module.exports = class Alunos {
 
-module.exports = class Alunos{
-
-    constructor(){
-
+    constructor() {
         this.nome = "";
         this.turma = "";
         this.telefone = "";
         this.email = "";
         this.curso = "";
         this.escola = "";
+        this.matricula = "";
         this.endereco = "";
     }
 
@@ -45,11 +43,11 @@ module.exports = class Alunos{
         return this.email;
     }
 
-    setCurso(cu){
+    setCurso(cu) {
         this.curso = cu;
     }
 
-    getCurso(){
+    getCurso() {
         return this.curso;
     }
 
@@ -61,25 +59,85 @@ module.exports = class Alunos{
         return this.escola;
     }
 
-    setEndereco(en){
+    setMatricula(ma) {
+        this.matricula = ma;
+    }
+
+    getEscola() {
+        return this.matricula;
+    }
+
+    setEndereco(en) {
         this.endereco = en;
     }
-    
-    getEndereco(){
+
+    getEndereco() {
         return this.endereco;
     }
 
+
     inserir(connection) {
         try {
-            var sql = "INSERT INTO alunos (nome,turma,telefone,email,curso,endereco,escola) VALUES(?, ?, ?, ?, ?, ?, ?)";
-    
-            connection.query(sql, [this.nome, this.turma, this.telefone, this.email, this.curso, this.endereco, this.escola], function (err, result) {
-              if (err) throw "teste";
-              //if (err) console.error('err from callback: ' + err.stack);
-              });
+            var sql = "INSERT INTO alunos (nome,turma,telefone,email,curso,ano,escola,matricula,endereco) VALUES(?,?,?,?,?,?,?,?,?)";
+            connection.query(sql, [this.nome, this.turma, this.telefone, this.email, this.curso, this.ano, this.escola, this.matricula, this.endereco],
+                function (err, result) {
+                    //if (err) throw "teste";
+                    if (err) throw 'err from callback: ' + err.stack;
+                });
+        }
+        catch (e) {
+            console.error('err from callback: ' + e.stack);
+            throw e;
+        }
+    }
+
+    listar(connection, callback) {
+        var sql = "SELECT * FROM alunos";
+
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            return callback(result);
+        });
+    }
+
+
+    pesquisar(connection, callback) {
+        var sql = "SELECT * FROM alunos WHERE nome like ?";
+
+        connection.query(sql, [this.nome], function (err, result) {
+            if (err) throw err;
+            return callback(result);
+        });
+    }
+    deletar(connection) {
+        var sql = "DELETE FROM alunos WHERE matricula =  ?";
+
+        connection.query(sql, [this.matricula], function (err, result) {
+            //if (err) throw "teste";
+            if (err) throw 'err from callback: ' + err.stack;
+        });
+    }
+
+    consultarChave(connection, callback) {
+        var sql = "SELECT * FROM alunos WHERE matricula = ?";
+
+        connection.query(sql, [this.matricula], function (err, result) {
+            if (err) throw err;
+            return callback(result);
+        });
+    }
+
+    atualizar(connection) {
+        try {
+            var sql = "UPDATE alunos SET nome = ?, turma = ?, telefone = ?, email = ?, curso = ?, ano = ?, escola = ?, matricula = ?, endereco = ?";
+
+            connection.query(sql, [this.nome, this.turma, this.telefone, this.email, this.curso, this.ano, this.escola, this.matricula, this.endereco], function (err, result) {
+                //if (err) throw "teste";
+                if (err) throw 'err from callback: ' + err.stack;
+            });
         } catch (e) {
             console.error('err from callback: ' + e.stack);
             throw e;
         }
-      }
+    }
 }

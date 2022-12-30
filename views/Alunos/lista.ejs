@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos: lista</title>
+</head>
+
+<body>
+
+    <h1>LISTA - ALUNOS</h1>
+    <hr>
+    <br>
+
+    <h2>Filtrar Alunos</h2>
+    <form action="/filtrarAlunos" method="post">
+        <input type="search" placeholder="Use % como coringa" aria-label="Search">
+        <button class="btn" type="submit" name="filtrar" value="Filtrar">Filtrar</button>
+    </form>
+    <br><br>
+
+    <a href="/formAlunos">Novo Aluno</a><br><br>
+    <a href="/">Voltar para Tela Principal</a>&nbsp;
+
+    <form action="/gerenciarAlunos" method="post">
+        <input type="submit" name="acao" value="Excluir">
+        <input type="submit" name="acao" value="Atualizar">
+
+        <table>
+            <tr>
+                <th>Selecionar</th>
+                <th>Nome</th>
+                <th>Turma</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Curso</th>
+                <th>Ano</th>
+                <th>Escola</th>
+                <th>Matrícula</th>
+                <th>Endereco</th>
+            </tr>
+
+            <% alunos.forEach((alu, index)=> { %>
+                <tr>
+                    <td>
+                        <input type="radio" name="matricula" value="<%= alu.matricula %>">
+                    </td>
+
+                    <td>
+                        <%= alu.nome %>
+                    </td>
+
+                    <td>
+                        <%= alu.turma %>
+                    </td>
+
+                    <td>
+                        <%= alu.telefone %>
+                    </td>
+
+                    <td>
+                        <%= alu.email %>
+                    </td>
+
+                    <td>
+                        <%= alu.curso %>
+                    </td>
+
+                    <td>
+                        <%= alu.ano %>
+                    </td>
+
+                    <td>
+                        <%= alu.escola %>
+                    </td>
+
+                    <td>
+                        <%= alu.matricula %>
+                    </td>
+
+                    <td>
+                        <%= alu.endereco %>
+                    </td>
+                </tr>
+                <% }) %>
+        </table>
+    </body>
+</html>

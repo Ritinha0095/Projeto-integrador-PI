@@ -9,21 +9,24 @@ create table membros (
 	telefone int(9) NOT NULL,
 	email varchar(100) NOT NULL,
     escola varchar(100),
+	matricula varchar (10),
+	cargo varchar (20),
 	PRIMARY KEY(membros_id)
 );
 
 CREATE TABLE cargos (
     cargos_id INT AUTO_INCREMENT,
+	membros_id int auto_increment,
     presidente VARCHAR(45) NOT NULL,
     vice_presidente VARCHAR(45) NOT NULL,
     financeiro VARCHAR(45),
     comunicacao VARCHAR(45),
-    designerDeSimulacao VARCHAR(45),
-	membros_id int not null,
+    designer VARCHAR(45),
     PRIMARY KEY (cargos_id),
     FOREIGN KEY (membros_id)
         REFERENCES membros (membros_id)
 );
+
 
 create table escolas (
 	escolas_id int auto_increment,
@@ -65,6 +68,7 @@ create table alunos (
 	email varchar(100),
 	curso varchar(100) NULL,
 	endereco varchar(100),
+	matricula varchar (10),
 	escola varchar(100),
 	escolas_id int not null,
 	comites_id int not null,
@@ -89,17 +93,30 @@ create table evento(
 	FOREIGN KEY(escolas_id) REFERENCES escolas(escolas_id)
 );
 
+create table alunosTIB(
+	alunos_id int auto_increment,
+	nome varchar(100) not null,
+	turma varchar(30),
+	telefone int(9) not null,
+	matricula varchar (10) not null,
+	email varchar(100),
+	comite varchar (100) not null,
+	delegacao  varchar (100) not null,
+	PRIMARY KEY(alunos_id),
+    FOREIGN KEY(comites_id) REFERENCES comites(comites_id)
+);
+
 create table alunosMIFRES (
 	alunos_id int auto_increment,
 	nome varchar(100),
-	turma varchar(30),
-	telefone int(9),
-	email varchar(100),
-	curso varchar(100) NULL,
+	cpf int (11) not null,
+	telefone int(9) not null,
+	email varchar(100) not null,
 	endereco varchar(100),
 	escola varchar(100),
 	escolas_id int not null,
-	comites_id int not null,
+	comite varchar (100) not null,
+	delegacao  varchar (100) not null,
 	PRIMARY KEY(alunos_id),
     FOREIGN KEY(escolas_id) REFERENCES escolas(escolas_id),
     FOREIGN KEY(comites_id) REFERENCES comites(comites_id)
