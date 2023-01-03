@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alunos: Resultado</title>
+</head>
+
+<body>
+
+    <h1>RESULTADO: Dados</h1>
+    <hr><br>
+
+    <ul>
+        <li>Nome: <%= param.getNome()%></li>
+
+        <li>Turma: <%= param.getTurma()%></li>
+
+        <li>Telefone: <%= param.getTelefone()%></li>
+
+        <li>Email: <%= param.getEmail()%></li>
+
+        <li>Curso: <%= param.getCurso()%></li>
+
+        <li>Ano: <%= param.getAno()%></li>
+
+        <li>Escola: <%= param.getEscola()%></li>
+
+        <li>Matrícula: <%= param.getMatricula()%></li>
+
+        <li>Endereço: <%= param.getEndereco()%></li>
+    </ul>
+    <br><br>
+
+    <a href="/alunos">Consultar Alunos</a>
+    <a href="/cri">Voltar ao Início</a>
+
+</body>
+</html>
