@@ -11,10 +11,10 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const Alunos = require('./models/Alunos');
-//const Cargos = require('./models/Cargos');
-//const Comites = require('./models/Comites');
+const Cargos = require('./models/Cargos');
+const Comites = require('./models/Comites');
 //const Escolas = require('./models/Escolas');
-//const Evento = require('./models/Evento');
+const Evento = require('./models/Evento');
 const Membros = require('./models/Membros');
 //const Orgaos = require('./models/Orgaos');
 
@@ -208,84 +208,97 @@ app.post('/atualizarMembros', function (req, res) {
     res.render('Membros/resultado.ejs', { param: mem, msg: 'Membro atualizado com sucesso!!!' });
 });
 
-// ************ TIB ************ //
-
-app.get('//lista', function (req, res) {
-    var tib= new TIB();
-    tib.listar(con, function (result) {
-        res.render('Evento//lista.ejs', { tib: result });
-    });
-});
+// ************ EVENTOS ************ //
 
 app.get('/form', function (req, res) {
-    res.sendFile(__dirname + 'Evento/form.html');
+
+    var ev = new Evento();
+    
+	res.render('/views/Evento/form.ejs');
 });
 
-app.post('/salvarTib', function (req, res) {
-    try {
-        var tib= new TIB();
+app.get('/inscricao', function (req, res) {
 
-        tib.setNome(req.body.nome);
-        tib.setTurma(req.body.turma);
-        tib.setTelefone(req.body.telefone);
-         tib.setMatricula(req.body.matricula);
-        tib.setEmail(req.body.email);
-        tib.setComite(req.body.comite);
-        tib.setDelegacao(req.body.delegacao);
+	var ev = new Evento();
+	ev.listar(con, function (result) {
+		res.render('Evento/lista.ejs', { evento: result });
+	});
 
-        var retorno = tib.inserir(con);
-        console.log('Aqui: ' + retorno);
-    } catch (e) {
-        console.log('Erro: ' + e.message);
-    }
-    res.render('Evento/resultado.ejs', { param: tib, msg: 'Delegado registrado com sucesso!' });
 });
 
+app.post('/filtrarAluno', function (req, res) {
+	var ev = new Evento();
+	ev.setNome(req.body.nome);
 
-app.post('/filtrarTib', function (req, res) {
-    var tib = new TIB();
-    tib.setNome(req.body.nome);
+	if (ev.getNome() == '') {
+		ev.setNome('%');
+	}
 
-    if (tib.getNome() == '') {
-        tib.setNome('%');
-    }
-
-    tib.pesquisar(con, function (result) {
-        res.render('Evento//lista.ejs', { tib: result });
-    });
+	ev.pesquisar(con, function (result) {
+		res.render('views/Evento/lista.ejs', { evento: result });
+	});
 });
 
-app.post('/gerenciarTib', function (req, res) {
-    var tib = new TIB();
-    if (req.body.acao == 'Excluir') {
-        tib.setMatricula(req.body.matricula);
-        tib.deletar(con);
-        res.render('Evento/resultado.ejs', { param: tib, msg: 'Delegado excluido do sistema com sucesso!' });
-    } else {
-        tib.setMatricula(req.body.matricula);
-        tib.consultarChave(con, function (result) {
-            res.render('Evento/form.ejs', { tib: result });
-        });
-    }
+app.post('/salvarEvento', function (req, res) {
+
+	try {
+		var ev = new Evento();
+
+		ev.setNome(req.body.nome);
+		ev.setEscolas(req.body.escola);
+		ev.setAno(req.body.ano);
+		ev.setTelefone(req.body.telefone);
+		ev.setComite(req.body.comite);
+		ev.setDelegacao(req.body.delegacao);
+		ev.setJustificativa(req.body.justificativa);
+
+		var retorno = ev.inserir(con);
+		console.log('Aqui: ' + retorno);
+	} catch (e) {
+		console.log('Erro: ' + e.message);
+	}
 });
 
-app.post('/atualizarTib', function (req, res) {
-    try {
-        var tib = new TIB();
+app.post('/gerenciarLista', function(req, res){
+	var ev = new Evento();
+	if (req.body.acao == 'Excluir') {
+		ev.setNome(req.body.nome);
+		ev.deletar(con);
+	} else {
+		ev.setNome(req.body.nome);
+		ev.consultarChave(con, function(result){
+			res.render('Evento/form.ejs', {evento: result});
+		});
+	}	
+});
 
-        tib.setNome(req.body.nome);
-        tib.setTurma(req.body.turma);
-        tib.setTelefone(req.body.telefone);
-         tib.setMatricula(req.body.matricula);
-        tib.setEmail(req.body.email);
-        tib.setComite(req.body.comite);
-        tib.setDelegacao(req.body.delegacao);
+app.post('/atualizarEvento', function(req, res){
+	try {
+		var ev = new Evento();
+		
+		ev.setNome(req.body.nome);
+		ev.setEscolas(req.body.escola);
+		ev.setAno(req.body.ano);
+		ev.setTelefone(req.body.telefone);
+		ev.setComite(req.body.comite);
+		ev.setDelegacao(req.body.delegacao);
+		ev.setJustificativa(req.body.justificativa)
+		
+		var retorno = ev.atualizar(con);
+		console.log('Aqui: ' + retorno);
+	} catch (e) {
+		console.log('Erro: '+e.message);
+	}
+});
 
-        var retorno = tib.atualizar(con);
-        console.log('Aqui: ' + retorno);
+app.post('/escolherEvento', function(req, res){
 
-    } catch (e) {
-        console.log('Erro: ' + e.message);
-    }
-    res.render('Evento/resultado.ejs', { param: tib, msg: 'Delegado atualizado com sucesso!!!' });
+	try{
+		var ev = new Evento();
+
+		ev.setTipo(req.body.choose)
+	} catch (e) {
+		console.log('Erro: '+e.message);
+	}
+
 });

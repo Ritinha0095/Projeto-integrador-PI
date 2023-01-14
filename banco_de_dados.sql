@@ -1,4 +1,4 @@
-DROP DATABASE CRI;
+
 create database CRI;
 use CRI;
 
@@ -14,9 +14,9 @@ create table membros (
 	PRIMARY KEY(membros_id)
 );
 
-CREATE TABLE cargos (
+create table cargos (
     cargos_id INT AUTO_INCREMENT,
-	membros_id int auto_increment,
+	membros_id int,
     presidente VARCHAR(45) NOT NULL,
     vice_presidente VARCHAR(45) NOT NULL,
     financeiro VARCHAR(45),
@@ -78,7 +78,7 @@ create table alunos (
 );
 
 
-create table evento(
+create table eventos(
 	id int auto_increment,
 	nome varchar(100) NOT NULL,
 	telefone int(9) NOT NULL,
@@ -102,6 +102,7 @@ create table alunosTIB(
 	email varchar(100),
 	comite varchar (100) not null,
 	delegacao  varchar (100) not null,
+	comites_id int,
 	PRIMARY KEY(alunos_id),
     FOREIGN KEY(comites_id) REFERENCES comites(comites_id)
 );
@@ -117,6 +118,7 @@ create table alunosMIFRES (
 	escolas_id int not null,
 	comite varchar (100) not null,
 	delegacao  varchar (100) not null,
+	comites_id int,
 	PRIMARY KEY(alunos_id),
     FOREIGN KEY(escolas_id) REFERENCES escolas(escolas_id),
     FOREIGN KEY(comites_id) REFERENCES comites(comites_id)
