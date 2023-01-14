@@ -7,9 +7,11 @@
     <meta name="keywords"
         content="Clube de RI, clube de ri, clube, Clube, relacoes internacionais, Relações Internacionais, IFRS, simulacoes, simulações">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <script type="text/javascript" src="script.js" />
 
     <link rel="icon" type="image/png" href="../images/icon.png">
     <title>CRIIFRS</title>
+
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.min.css">
@@ -17,7 +19,6 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
     <script src="https://kit.fontawesome.com/3ad1155e12.js" crossorigin="anonymous"></script>
-
     <!-- Animation -->
     <link rel="stylesheet" href="../plugins/animate-css/animate.css">
 
@@ -131,45 +132,44 @@
                                     data-target=".navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false"
                                     aria-label="Toggle navigation">
                                     <span class="navbar-toggler-icon"></span>
-                                </button>
 
-                                <div id="navbar-collapse" class="collapse navbar-collapse">
-                                    <ul class="nav navbar-nav mr-auto">
-                                        <li class="nav-item dropdown active">
-                                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">HOME<i
-                                                    class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li class="active"><a href="/index">Conheça o CRIIFRS!</a></li>
-                                                <li class="active"><a href="/alunos">Registre-se em nosso site!</a>
-                                                </li>
-                                                <li class="active"><a href="/cargos">Registre um novo membro
-                                                        efetivo</a></li>
-                                            </ul>
-                                        </li>
+                                    <div id="navbar-collapse" class="collapse navbar-collapse">
+                                        <ul class="nav navbar-nav mr-auto">
+                                            <li class="nav-item dropdown active">
+                                                <a href="#" class="nav-link dropdown-toggle"
+                                                    data-toggle="dropdown">HOME<i class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li class="active"><a href="/index">Conheça o CRIIFRS!</a></li>
+                                                    <li class="active"><a href="/alunos">Registre-se em nosso site!</a>
+                                                    </li>
+                                                    <li class="active"><a href="/cargos">Registre um novo membro
+                                                            efetivo</a></li>
+                                                </ul>
+                                            </li>
 
-                                        <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">TIB<i
-                                                    class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="/tib">Conheça o TIB!</a></li>
-                                                <li><a href="/inscricao">Inscreva-se no TIB!</a></li>
-                                            </ul>
-                                        </li>
+                                            <li class="nav-item dropdown">
+                                                <a href="#" class="nav-link dropdown-toggle"
+                                                    data-toggle="dropdown">TIB<i class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="/tib">Conheça o TIB!</a></li>
+                                                    <li><a href="/inscricao">Inscreva-se no TIB!</a></li>
+                                                </ul>
+                                            </li>
 
-                                        <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">MIFRES<i
-                                                    class="fa fa-angle-down"></i></a>
-                                            <ul class="dropdown-menu" role="menu">
-                                                <li><a href="/mifres">Conheça o MIFRes!</a></li>
-                                                <li><a href="/inscricao">Inscreva-se no MIFRes!</a></li>
-                                                <li><a href="/comites">Registre um novo comitê!</a></li>
-                                            </ul>
-                                        </li>
+                                            <li class="nav-item dropdown">
+                                                <a href="#" class="nav-link dropdown-toggle"
+                                                    data-toggle="dropdown">MIFRES<i class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="/mifres">Conheça o MIFRes!</a></li>
+                                                    <li><a href="/inscricao">Inscreva-se no MIFRes!</a></li>
+                                                    <li><a href="/comites">Registre um novo comitê!</a></li>
+                                                </ul>
+                                            </li>
 
-                                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                             </nav>
                         </div>
                     </div>
@@ -275,11 +275,11 @@
             <h2>CADASTROS</h2>
             <hr><br>
 
-            <form action="filtrarAluno" method="post">
+            <form action="/filtrarAluno" method="post">
                 <label for="nome">
-                    <p>Nome (use % como caracter coringa)</p>
+                    Nome (use % como caracter coringa)
                 </label>
-                <input type="text" name="pesquisa" id="pesquisa" size="30">
+                <input type="text" name="nome" id="nome" size="30">
                 <input type="submit" class="btn filtro" id="filtrar" name="filtrar" value="Filtrar"><br><br>
             </form>
             <form action="gerenciarLista" method="post">
@@ -292,13 +292,13 @@
 
         <h3>Você deseja realizar uma inscrição para um TIB ou MIFRes?</h3>
         <br>
-        <select id="choose">
-            <option value="tib">TIB</option>
-            <option value="mifres">MIFRes</option>
-        </select>
-        <br>
-        <button class="button" id="escolher" onclick="escolha()">Escolher</button>
-
+        <form action="/escolherEvento">
+            <label for="choose"></label>
+            <select id="choose" name="choose">
+                <option value="tib">TIB</option>
+                <option value="mifres">MIFRes</option>
+            </select>
+        </form>
         <script>
 
             function escolha() {
@@ -321,7 +321,12 @@
             }
 
         </script>
+        <br>
+
+        <button class="button" id="botao" onclick="escolha()">Escolher</button>
+
         <section id="TIBcadastro" hidden>
+
 
             <!-- 
             MUDAR

@@ -1,5 +1,5 @@
 const Alunos = require('./Alunos');
-const Orgaos = require('./Orgaos');
+
 
 module.exports = class Comites{
 

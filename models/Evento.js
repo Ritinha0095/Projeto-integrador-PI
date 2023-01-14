@@ -1,86 +1,114 @@
-module.exports = class Alunos {
+const Alunos = require('./Alunos');
+const Membros = require('./Membros');
+const Comites = require('./Comites');
 
+module.exports = class Eventos {
     constructor() {
+
         this.nome = "";
-        this.turma = "";
-        this.telefone = "";
-        this.matricula = "";
-        this.email = "";
+        this.escolas = "";
+        this.ano = "";
+        this.contato = "";
         this.comite = "";
         this.delegacao = "";
+        this.justificativa = "";
+        this.tipo = "";
     }
 
-    setNome(n) {
-        this.nome = n;
+    setNome(nom) {
+        this.nome = nom;
     }
-
     getNome() {
         return this.nome;
     }
 
-    setTurma(tu) {
-        this.turma = tu;
+    setEscolas(esc) {
+        this.escolas = esc;
+    }
+    getEscolas() {
+        return this.escolas;
     }
 
-    getTurma() {
-        return this.turma;
+    setAno(ano) {
+        this.ano = ano;
+    }
+    getAno() {
+        return this.ano;
     }
 
-    setTelefone(te) {
-        this.telefone = te;
+    setTelefone(tel) {
+        this.telefone = tel;
     }
-
     getTelefone() {
         return this.telefone;
     }
 
-    setMatricula(ma) {
-        this.matricula = ma;
+    setComite(com) {
+        this.comite = com;
     }
-    getMatricula (){
-        return this.matricula;
-    }
-
-    setEmail(em) {
-        this.email = em;
-    }
-
-    getEmail() {
-        return this.email;
-    }
-  
-    setComite(ct) {
-        this.comite = ct;
-    }
-    getComite(){
+    getComite() {
         return this.comite;
     }
 
-    setDelegacao(d) {
-        this.delegacao = d;
+    setDelegacao(deleg) {
+        this.delegacao = deleg;
     }
-    getDelegacao (){
+    getDelegacao() {
         return this.delegacao;
     }
 
+    setJustificativa(jus) {
+        this.justificativa = jus;
+    }
+    getJustificativa() {
+        return this.justificativa;
+    }
 
+    setTipo(t) {
+        this.tipo = t;
+    }
+    getTipo() {
+        return this.tipo;
+    }
+
+
+    //MUDAR ESSE NEGÓCIO DEPOIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MUDAAAAAAAAARR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ADIOCIONAR O TIPO COM UM SWITCH CASE FOR = TIB ADICIONA AS INFORMAÇÕES RELACIONADAS A TIB, A MESMA COISA EM RELAÇÃO AO MIFRES
     inserir(connection) {
-        try {
-            var sql = "INSERT INTO alunosTIB (nome,turma,telefone,matricula,email,comite,cargo) VALUES(?,?,?,?,?,?,?)";
-            connection.query(sql, [this.nome, this.turma, this.telefone, this.matricula, this.email, this.comite, this.delegacao],
-                function (err, result) {
-                    //if (err) throw "teste";
-                    if (err) throw 'err from callback: ' + err.stack;
-                });
-        }
-        catch (e) {
-            console.error('err from callback: ' + e.stack);
-            throw e;
+        if (this.tipo == "tib") {
+
+            try {
+                var sql = "INSERT INTO eventos (nome,escolas,ano,telefone,comite,delegacao,justificativa, tipo) VALUES (?,?,?,?,?,?,?, 'tib')"
+
+                connection.query(sql, [this.nome, this.escolas, this.ano, this.telefone, this.comite, this.delegacao, this.justificativa, this.tipo],
+                    function (err, result) {
+                        if (err) throw "teste"
+                    });
+
+            } catch (e) {
+                console.error('err from callback: ' + e.stack);
+                throw e;
+            }
+        } else {
+
+
+            try {
+                var sql = "INSERT INTO eventos (nome,escolas,ano,telefone,comite,delegacao,justificativa, tipo) VALUES (?,?,?,?,?,?,?, 'mifres')"
+
+                connection.query(sql, [this.nome, this.escolas, this.ano, this.telefone, this.comite, this.delegacao, this.justificativa, this.tipo],
+                    function (err, result) {
+                        if (err) throw "teste"
+                    });
+
+            } catch (e) {
+                console.error('err from callback: ' + e.stack);
+                throw e;
+
+            }
         }
     }
 
     listar(connection, callback) {
-        var sql = "SELECT * FROM alunosTIB";
+        var sql = "SELECT * FROM eventos ";
 
         connection.query(sql, function (err, result) {
             if (err) throw err;
@@ -89,43 +117,22 @@ module.exports = class Alunos {
     }
 
 
-    pesquisar(connection, callback) {
-        var sql = "SELECT * FROM alunosTIB WHERE matricula like ?";
-
-        connection.query(sql, [this.matricula], function (err, result) {
-            if (err) throw err;
-            return callback(result);
-        });
-    }
-    deletar(connection) {
-        var sql = "DELETE FROM alunosTIB WHERE matricula =  ?";
-
-        connection.query(sql, [this.matricula], function (err, result) {
-            //if (err) throw "teste";
-            if (err) throw 'err from callback: ' + err.stack;
-        });
-    }
-
     consultarChave(connection, callback) {
-        var sql = "SELECT * FROM alunosTIB WHERE matricula = ?";
+        var sql = "SELECT * FROM eventos WHERE nome like = ?";
 
-        connection.query(sql, [this.matricula], function (err, result) {
+        connection.query(sql, [this.nome], function (err, result) {
             if (err) throw err;
             return callback(result);
         });
     }
 
-    atualizar(connection) {
-        try {
-            var sql = "UPDATE alunosTIB SET nome = ?, turma = ?, telefone = ?, matricula = ?, email = ?, comite = ?, delegacao = ?";
 
-            connection.query(sql, [this.nome, this.turma, this.telefone, this.matricula, this.email, this.comite, this.delegacao], function (err, result) {
-                //if (err) throw "teste";
-                if (err) throw 'err from callback: ' + err.stack;
-            });
-        } catch (e) {
-            console.error('err from callback: ' + e.stack);
-            throw e;
-        }
-    }
+pesquisar(connection, callback) {
+    var sql = "SELECT * FROM eventos WHERE nome like = ?";
+
+    connection.query(sql, [this.nome], function (err, result) {
+        if (err) throw err;
+        return callback(result);
+    });
+}
 }
